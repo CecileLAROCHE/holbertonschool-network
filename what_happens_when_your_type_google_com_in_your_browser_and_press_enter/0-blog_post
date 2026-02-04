@@ -1,0 +1,94 @@
+# What happens when you type `https://www.google.com` into your browser and press Enter?
+
+That's the question Holberton asked us, and here's my answer.
+
+When you type `https://www.google.com` into your browser and press Enter, a surprising number of operations take place in the background. This process involves the collaboration of networks, security systems, servers, and databases to display a web page in milliseconds.
+
+## 1. DNS Query
+
+Your browser first needs the IP address of `www.google.com`.
+
+The browser checks:
+
+- its DNS cache,
+- the operating system cache, and
+- the router cache.
+
+If the IP address is not found, a query is sent to a DNS resolver (usually provided by your ISP or a public DNS service like Google DNS).
+
+The DNS resolver queries the following servers:
+
+- Root DNS servers
+- TLD (.com) servers
+- Authoritative DNS servers for google.com
+
+Once the IP address is found, it is sent back to the browser.
+
+## 2. TCP/IP Connection
+
+Now that the browser knows the IP address, it must establish a connection. The browser uses the TCP (Transmission Control Protocol).
+
+A three-step negotiation takes place:
+
+- SYN
+- SYN-ACK
+- ACK
+
+This ensures a reliable connection between your computer and Google's server.
+
+## 3. Firewall
+
+Before allowing traffic, firewalls check the request on both the client side (your operating system or router) and the server side (Google's infrastructure).
+
+Firewalls check:
+
+- Allowed ports (HTTPS uses port 443)
+- Valid IP address ranges
+- Security rules
+
+If the request is accepted, it proceeds.
+
+## 4. HTTPS / SSL (TLS)
+
+Since the URL begins with https, a TLS handshake is performed.
+
+First, the server sends an SSL certificate. Then, the browser verifies the certificate with a trusted certificate authority. Encryption keys are exchanged. Afterward, all communications are encrypted, thus protecting the data from interception.
+
+## 5. Load balancer
+
+Of course, Google doesn't use a single server. A load balancer receives the request. It distributes the traffic across multiple servers. This improves performance, availability, and fault tolerance. The load balancer chooses the most appropriate server to handle the request.
+
+## 6. Web Server
+
+The request reaches a web server (such as Nginx or Apache).
+
+The web server:
+
+- Handles HTTP requests.
+- Serves static files (HTML, CSS, images).
+- Forwards dynamic requests to the application server.
+
+## 7. Application Server
+
+The application server contains the business logic. It processes the request, applies application rules, communicates with databases or other services, and finally generates dynamic content. For Google, this step is highly optimized and distributed.
+
+## 8. Database
+
+If data is needed, the application server queries a database. The database then returns the requested data. The results are then processed and formatted. This data can come from an SQL database, a NoSQL database, a distributed storage system, or another source.
+
+## 9. Response to the browser
+
+Once everything is ready, the response is sent back via the same path, encrypted using HTTPS, via TCP/IP. The browser parses the HTML, loads the CSS and JavaScript, builds the DOM, and displays the page. You see the Google homepage.
+
+## Conclusion
+
+Typing a simple URL triggers a complex chain of events involving:
+
+- DNS
+- Network
+- Security
+- Load balancing
+- Servers
+- Databases
+
+Understanding this flow demonstrates how interconnected each layer of the web stack is and why being a full-stack engineer truly means understanding the entire system.
